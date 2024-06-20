@@ -49,5 +49,9 @@
 	<string>The app needs access to your camera for meetings.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>The app needs access to your microphone for meetings.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Speech Recognition is needed for taking User input for sending it to backend in order to be summarized.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Speech Recognition is needed for taking User input for sending it to backend in order to be summarized.</string>
 </dict>
 </plist>

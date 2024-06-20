@@ -24,11 +24,16 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - speech_to_text (0.0.1):
+    - Flutter
+    - Try
+  - Try (2.1.1)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - jitsi_meet_flutter_sdk (from `.symlinks/plugins/jitsi_meet_flutter_sdk/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - speech_to_text (from `.symlinks/plugins/speech_to_text/ios`)
 
 SPEC REPOS:
   trunk:
@@ -36,6 +41,7 @@ SPEC REPOS:
     - JitsiMeetSDK
     - JitsiWebRTC
     - libwebp
+    - Try
 
 EXTERNAL SOURCES:
   Flutter:
@@ -44,6 +50,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/jitsi_meet_flutter_sdk/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  speech_to_text:
+    :path: ".symlinks/plugins/speech_to_text/ios"
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
@@ -53,6 +61,8 @@ SPEC CHECKSUMS:
   JitsiWebRTC: 3a41671ef65a51d7204323814b055a2690b921c7
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
   path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
+  speech_to_text: b43a7d99aef037bd758ed8e45d79bbac035d2dfe
+  Try: 5ef669ae832617b3cee58cb2c6f99fb767a4ff96
 
 PODFILE CHECKSUM: f6e9bbe1c611753388eef015187d0d762163292d
 
