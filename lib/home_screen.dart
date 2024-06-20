@@ -1,8 +1,7 @@
 import 'dart:developer';
 
+import 'package:agora_uikit/agora_uikit.dart';
 import 'package:flutter/material.dart';
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
-import 'package:meeting_app/helper_methods/helper_methods.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class HomeScreen extends StatefulWidget {
@@ -19,16 +18,20 @@ class _HomeScreenState extends State<HomeScreen> {
   bool servicesAreEnabled = false;
   bool forceStopped = false;
 
-  // bool audioMuted = true;
-  // bool videoMuted = true;
-  // bool screenShareOn = false;
-  List<String> participants = [];
-  final _jitsiMeetPlugin = JitsiMeet();
+  final AgoraClient client = AgoraClient(
+    agoraConnectionData: AgoraConnectionData(
+      appId: '907e77c79df54774bf6dff976356ddb5',
+      channelName: 'test',
+      tempToken:
+          '007eJxTYDj7QUFF+6jgzc3hFzb9nptxxIj33PS5f9Z/m/ur/9meeOubCgyWBuap5ubJ5pYpaaYm5uYmSWlmKWlpluZmxqZmKSlJpjwNJWkNgYwMNb7sLIwMEAjiszCUpBaXMDAAAE46Ihs=',
+    ),
+  );
 
   @override
   void initState() {
     super.initState();
 
+    initAgora();
     startSTTServices();
   }
 
@@ -46,9 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void startCaptureAudio() async {
-    //* If not taking audio input
+  void initAgora() async {
+    await client.initialize();
+  }
 
+  void startCaptureAudio() async {
     if (servicesAreEnabled) {
       setState(() => isTakingAudioInput = true);
 
@@ -73,11 +78,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     messageController.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       body: GestureDetector(
         onTap: FocusScope.of(context).unfocus,
@@ -89,28 +97,15 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               //
-              ElevatedButton(
-                onPressed: () => HelperMethods.join(
-                  jitsiMeetPlugin: _jitsiMeetPlugin,
-                  participants: participants,
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
-                ),
-                child: const Text('Join'),
-              ),
 
-              const SizedBox(height: 20),
-
-              ElevatedButton(
-                onPressed: () =>
-                    HelperMethods.hangUp(jitsiMeetPlugin: _jitsiMeetPlugin),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
+              SizedBox(
+                height: screenSize.height * 0.5,
+                child: Stack(
+                  children: [
+                    AgoraVideoViewer(client: client),
+                    AgoraVideoButtons(client: client),
+                  ],
                 ),
-                child: const Text('Hang Up'),
               ),
 
               const SizedBox(height: 20),
@@ -139,54 +134,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 maxLines: 5,
                 onTapOutside: (event) => FocusScope.of(context).unfocus,
               ),
-
-              // const SizedBox(height: 20),
-
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     const Text('Set Audio Muted'),
-              //     Checkbox(
-              //       value: audioMuted,
-              //       onChanged: setAudioMuted,
-              //     ),
-              //   ],
-              // ),
-
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     const Text('Set Video Muted'),
-              //     Checkbox(
-              //       value: videoMuted,
-              //       onChanged: setVideoMuted,
-              //     ),
-              //   ],
-              // ),
-
-              // TextButton(
-              //   onPressed: sendEndpointTextMessage,
-              //   child: const Text('Send Hey Endpoint Message To All'),
-              // ),
-              // Row(
-              //   children: [
-              //     const Text('Toggle Screen Share'),
-              //     Checkbox(
-              //       value: screenShareOn,
-              //       onChanged: toggleScreenShare,
-              //     ),
-              //   ],
-              // ),
-              // TextButton(onPressed: openChat, child: const Text('Open Chat')),
-              // TextButton(
-              //   onPressed: sendChatMessage,
-              //   child: const Text('Send Chat Message to All'),
-              // ),
-              // TextButton(onPressed: closeChat, child: const Text('Close Chat')),
-              // TextButton(
-              //   onPressed: retrieveParticipantsInfo,
-              //   child: const Text('Retrieve Participants Info'),
-              // ),
             ],
           ),
         ),

@@ -45,10 +45,12 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>The app needs access to your camera for meetings.</string>
+	<!-- Agora Permissions -->
 	<key>NSMicrophoneUsageDescription</key>
-	<string>The app needs access to your microphone for meetings.</string>
+	<string>This app requires access to the microphone for audio communication.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires access to the camera for video communication.</string>
+	<!-- Speech Recognition Permissions -->
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Speech Recognition is needed for taking User input for sending it to backend in order to be summarized.</string>
 	<key>NSMicrophoneUsageDescription</key>
